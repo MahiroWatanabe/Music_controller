@@ -48,7 +48,7 @@ export default class CreateRoomPage extends Component {
     };
     fetch("/api/create-room", requestOptions)
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => this.props.history.push("/index/room/" + data.code));
   }
 
   render() {
@@ -111,7 +111,12 @@ export default class CreateRoomPage extends Component {
           </Button>
         </Grid>
         <Grid item xs={12} align="center">
-          <Button color="secondary" variant="contained" to="/" component={Link}>
+          <Button
+            color="secondary"
+            variant="contained"
+            to="/index"
+            component={Link}
+          >
             Back
           </Button>
         </Grid>
