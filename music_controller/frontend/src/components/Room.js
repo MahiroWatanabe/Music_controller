@@ -25,7 +25,7 @@ export default class Room extends Component {
       .then((response) => {
         if (!response.ok) {
           this.props.leaveRoomCallback();
-          this.props.history.push("/");
+          this.props.history.push("/index");
         }
         return response.json();
       })
@@ -45,7 +45,7 @@ export default class Room extends Component {
     };
     fetch("/api/leave-room", requestOptions).then((_response) => {
       this.props.leaveRoomCallback();
-      this.props.history.push("/");
+      this.props.history.push("/index");
     });
   }
 
