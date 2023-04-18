@@ -14,9 +14,7 @@ export default class Room extends Component {
 
   getRoomDetails() {
     fetch("/api/get-room" + "?code=" + this.roomCode)
-      .then((response) => {
-        response.json();
-      })
+      .then((response) => response.json())
       .then((data) => {
         this.setState({
           votesToSkip: data.votes_to_skip,
@@ -31,7 +29,7 @@ export default class Room extends Component {
       <div>
         <h3>{this.roomCode}</h3>
         <p>Votes: {this.state.votesToSkip}</p>
-        <p>Guest can Pause: {this.state.guestCanPause.toString()}</p>
+        <p>Guest Can Pause: {this.state.guestCanPause.toString()}</p>
         <p>Host: {this.state.isHost.toString()}</p>
       </div>
     );
