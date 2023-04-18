@@ -2,14 +2,7 @@ import React, { Component } from "react";
 import RoomJoinPage from "./RoomJoinPage";
 import CreateRoomPage from "./CreateRoomPage";
 import Room from "./Room";
-import {
-  ButtonGroup,
-  TextField,
-  Button,
-  Grid,
-  Typography,
-} from "@material-ui/core";
-
+import { Grid, Button, ButtonGroup, Typography } from "@material-ui/core";
 import {
   BrowserRouter as Router,
   Switch,
@@ -24,13 +17,16 @@ export default class HomePage extends Component {
     this.state = {
       roomCode: null,
     };
+    this.clearRoomCode = this.clearRoomCode.bind(this);
   }
 
   async componentDidMount() {
     fetch("/api/user-in-room")
       .then((response) => response.json())
       .then((data) => {
-        this.setState({ roomCode: data.code });
+        this.setState({
+          roomCode: data.code,
+        });
       });
   }
 
@@ -56,6 +52,12 @@ export default class HomePage extends Component {
     );
   }
 
+  clearRoomCode() {
+    this.setState({
+      roomCode: null,
+    });
+  }
+
   render() {
     return (
       <Router>
@@ -73,7 +75,12 @@ export default class HomePage extends Component {
           />
           <Route path="/index/join" component={RoomJoinPage} />
           <Route path="/index/create" component={CreateRoomPage} />
-          <Route path="/index/room/:roomCode" component={Room} />
+          <Route
+            path="/index/room/:roomCode"
+            render={(props) => {
+              return <Room {...props} leaveRoomCallback={this.clearRoomCode} />;
+            }}
+          />
         </Switch>
       </Router>
     );
